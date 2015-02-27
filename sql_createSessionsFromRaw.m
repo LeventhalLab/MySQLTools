@@ -66,6 +66,8 @@ if isconnection(conn)
             if ~isempty(logInfo)    % there is a .log file for this session
 %                 error('sql_createSessionsFromRaw:noLogFile',['No log file for session ' sessionName]);
                 sessionComment = logData.comment;
+                behaviorID = 3; %choice task, !!!MUST FIX!!! -MG
+                apparatusID = 1; %moved up here, needs a better check
                 if isfield(logData, 'behaviorID')
                     behaviorID = logData.behaviorID;
                     if isfield(logData, 'box_number')
@@ -76,10 +78,8 @@ if isconnection(conn)
                         rs = fetch(exec(conn, qry));
                         apparatusID = rs.Data{1};
                         if strcmpi(apparatusID,'no data')
-                            error('sql_createSessionsFromRaw:no_apparatus_id',['No apparatus found for experiment ' ', box number ' num2str(box_number)]);
+                            error('sql_createSessionsFromRaw:no_apparatus_id',['No apparatus found for experiment ' ', box number ' num2str(logData.box_number)]);
                         end
-                    else
-                        apparatusID = 1;   % indicates that the box number wasn't recorded in the .log file
                     end
                 end
                 if isfield(logData, 'ephys_system')
