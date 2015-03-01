@@ -17,58 +17,8 @@ function nasPath = sql_findNASpathVPedit(varargin)
 %
 % OUTPUT:
 %   nasPath - string containing the path to the data directory for ratID
-           
-sqlJava_version = '5.1.34';
 
-hostIP = '172.20.138.142';
-user = 'dleventh';
-password = 'amygdala_probe';
-dbName = 'spikedb';
-ratID = varargin{1};
-
- for iarg = 2 : 2 : nargin - 1
-     switch lower(varargin{iarg})
-         case 'hostip'
-             hostIP = varargin{iarg + 1};
-         case 'user',
-             user = varargin{iarg + 1};
-         case 'password',
-             password = varargin{iarg + 1};
-         case 'dbname',
-             dbName = varargin{iarg + 1};
-         case 'sqljava_version',
-             sqlJava_version = varargin{iarg + 1};
-     end
- end
- 
-versionString   = ['R' version('-release')];
-
-if ispc
-    matlabParentDir = fullfile('C:\Program Files', ...
-                               'MATLAB', ...
-                               versionString);
-elseif ismac
-    matlabParentDir = fullfile('/Applications', ...
-                               ['MATLAB_' versionString '.app']);
-
-%elseif isunix
-    
-end
-
-sql_java_path = fullfile(matlabParentDir, ...
-                         'java', ...
-                         'jarext', ...
-                         ['mysql-connector-java-' sqlJava_version], ...
-                         ['mysql-connector-java-' sqlJava_version '-bin.jar']);
-if isempty(strcmp(sql_java_path, javaclasspath))
-    javaaddpath(sql_java_path);
-elseif ~strcmp(sql_java_path, javaclasspath)
-    javaaddpath(sql_java_path);
-end
-
-jdbcString = sprintf('jdbc:mysql://%s/%s', hostIP, dbName);
-jdbcDriver = 'com.mysql.jdbc.Driver';
-conn = database(dbName, user , password, jdbcDriver, jdbcString);
+conn = establishConn;
 
 if isconnection(conn)
 
