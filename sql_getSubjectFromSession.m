@@ -8,13 +8,6 @@ function [subjectID, ratID] = sql_getSubjectFromSession(sessionName)
 % INPUTS:
 %   sessionName - string with unique session identifier (e.g., 'R0035_20141203a')
 %
-% VARARGINs:
-%   'hostIP' - IP address of the sql DB host server
-%   'user' - user name to login to the sql DB
-%   'password' - password to login to the sql DB
-%   'dbname' - name of the sql DB
-%   'sqljava_version' - version of the sql-java interface
-%
 % OUTPUT:
 %   subjectID - the subject ID from the sql database (this is an integer)
 %   ratID - the ratID (subjectName in the sql db), a string in the format

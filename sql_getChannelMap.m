@@ -8,13 +8,6 @@ function chMap = sql_getChannelMap(ratID)
 % INPUTS:
 %   ratID - string with unique rat identifier (e.g., 'R0023')
 %
-% VARARGINs:
-%   'hostIP' - IP address of the sql DB host server
-%   'user' - user name to login to the sql DB
-%   'password' - password to login to the sql DB
-%   'dbname' - name of the sql DB
-%   'sqljava_version' - version of the sql-java interface
-%
 % OUTPUT:
 %   chMap - structure with the following fields:
 %           .tetNames - names of the "tetrodes" (e.g., 'T01', 'E01', etc.)

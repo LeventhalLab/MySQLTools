@@ -1,4 +1,4 @@
-function validMask = sql_getValidTetChannels(sessionName, tetrodeID, varargin)
+function validMask = sql_getValidTetChannels(sessionName, tetrodeID)
 %
 % usage: sql_getValidTetChannels(sessionName, tetrodeID, varargin)
 %
@@ -12,13 +12,6 @@ function validMask = sql_getValidTetChannels(sessionName, tetrodeID, varargin)
 %       session for that date (i.e., 'a', 'b', etc.)
 %   tetrodeID - ID of the tetrode in the tetrode database for which to
 %       extract which wires are good
-%
-% VARARGS:
-%   hostip - ip address of the server hosting the sql database
-%   user - user name for logging into the sql db
-%   password - password for logging into the sql db
-%   dbname - name of the sql database
-%   sqljava_version - version of the current java-sql interface
 %
 % OUTPUTS:
 %   validMask

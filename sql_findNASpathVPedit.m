@@ -1,4 +1,4 @@
-function nasPath = sql_findNASpathVPedit(varargin)
+function nasPath = sql_findNASpathVPedit()
 %
 % usage: nasPath = sql_findNASpath(ratID, varargin)
 %
@@ -7,13 +7,6 @@ function nasPath = sql_findNASpathVPedit(varargin)
 %
 % INPUTS:
 %   ratID - string with unique rat identifier (e.g., 'R0023')
-%
-% VARARGINs:
-%   'hostIP' - IP address of the sql DB host server
-%   'user' - user name to login to the sql DB
-%   'password' - password to login to the sql DB
-%   'dbname' - name of the sql DB
-%   'sqljava_version' - version of the sql-java interface
 %
 % OUTPUT:
 %   nasPath - string containing the path to the data directory for ratID

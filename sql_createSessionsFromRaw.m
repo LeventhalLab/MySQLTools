@@ -1,4 +1,4 @@
-function sql_createSessionsFromRaw(ratID, varargin)
+function sql_createSessionsFromRaw(ratID)
 %
 % usage: sql_createSessionsFromRaw(ratID, varargin)
 %
@@ -12,13 +12,6 @@ function sql_createSessionsFromRaw(ratID, varargin)
 %
 % INPUTS:
 %   ratID - "RZZZZ" where ZZZZ is the 4 digit rat identifier
-%
-% VARARGS:
-%   hostip - ip address of the server hosting the sql database
-%   user - user name for logging into the sql db
-%   password - password for logging into the sql db
-%   dbname - name of the sql database
-%   sqljava_version - version of the current java-sql interface
 %
 % OUTPUTS:
 %   none
