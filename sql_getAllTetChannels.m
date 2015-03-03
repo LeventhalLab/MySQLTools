@@ -1,4 +1,4 @@
-function validMask = sql_getAllTetChannels(sessionName)
+function validMask = sql_getAllTetChannels(sessionName, varargin)
 %
 % usage: sql_getValidTetChannels(sessionName, tetrodeID, varargin)
 %

@@ -1,4 +1,4 @@
-function chMap = sql_getChannelMap(ratID)
+function chMap = sql_getChannelMap(ratID, varargin)
 %
 % usage: chMap = findNASpath(ratID, varargin)
 %

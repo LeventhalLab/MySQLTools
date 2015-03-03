@@ -1,4 +1,4 @@
-function sql_addTetrodeSessions(ratID)
+function sql_addTetrodeSessions(ratID, varargin)
 %
 % usage: sql_addTetrodeSessions(ratID, varargin)
 %

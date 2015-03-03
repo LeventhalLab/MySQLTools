@@ -1,4 +1,4 @@
-function validMask = sql_getValidTetChannels(sessionName, tetrodeID)
+function validMask = sql_getValidTetChannels(sessionName, tetrodeID, varargin)
 % DEPRECATED
 % usage: sql_getValidTetChannels(sessionName, tetrodeID, varargin)
 %

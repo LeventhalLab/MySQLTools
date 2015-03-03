@@ -1,4 +1,4 @@
-function [subjectID, ratID] = sql_getSubjectFromSession(sessionName)
+function [subjectID, ratID] = sql_getSubjectFromSession(sessionName, varargin)
 %
 % usage: nasPath = sql_findNASpath(ratID, varargin)
 %

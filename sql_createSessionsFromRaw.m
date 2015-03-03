@@ -1,4 +1,4 @@
-function sql_createSessionsFromRaw(ratID)
+function sql_createSessionsFromRaw(ratID, varargin)
 %
 % usage: sql_createSessionsFromRaw(ratID, varargin)
 %

@@ -1,4 +1,4 @@
-function nasPath = sql_findNASpath(ratID)
+function nasPath = sql_findNASpath(ratID, varargin)
 %
 % usage: nasPath = sql_findNASpath(ratID, varargin)
 %
