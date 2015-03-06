@@ -3,7 +3,7 @@ function leventhalPaths = buildLeventhalPaths(nasPath,sessionName,varargin)
 leventhalPaths = {};
 ratID = sessionName(1:5);
 leventhalPaths.rawdata = fullfile(nasPath,ratID,[ratID,'-rawdata']);
-leventhalPaths.processed = fullfile(nasPath,ratID,[ratID,'-processed']);
+leventhalPaths.processed = fullfile(nasPath,ratID,[ratID,'-processed'],sessionName);
 leventhalPaths.session = fullfile(leventhalPaths.rawdata,sessionName,sessionName);
 
 % pass in makeFolders (ie. {'rawData'})
