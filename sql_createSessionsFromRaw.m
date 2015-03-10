@@ -16,6 +16,9 @@ function sql_createSessionsFromRaw(ratID, varargin)
 % OUTPUTS:
 %   none
 
+nasPath = sql_findNASpath( ratID );
+rawDataPath = fullfile(nasPath, ratID, [ratID '-rawdata']);
+
 conn = establishConn;
 
 if isconnection(conn)
