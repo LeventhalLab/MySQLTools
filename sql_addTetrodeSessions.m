@@ -13,6 +13,15 @@ function sql_addTetrodeSessions(ratID, varargin)
 % OUTPUTS:
 %   none
 
+
+for iarg = 1 : 2 : nargin - 1
+    switch varargin{iarg}
+        case 'validMask'
+            validMask = varargin{iarg + 1};
+    end
+end
+
+
 conn = establishConn;
 
 if isconnection(conn)
@@ -39,6 +48,12 @@ if isconnection(conn)
         tetrodeIDlist(iTet) = rs.Data{iTet};
     end
     tetrodeIDlist = unique(tetrodeIDlist);
+    
+    if exist(validMask)
+        if ~(length(tetrodeIDlist)==size(validMask,1))
+            error('sql_addTetrodeSessions:validMaskSize','Your valid mask size does not match the amount of tetrodes');
+        end
+    end
     
     % find all the sessions already entered in the sql database for that
     % rat that have ephys recordings
@@ -79,10 +94,17 @@ if isconnection(conn)
             
             lastTetSessionID = lastTetSessionID + 1;
             
-            qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID) VALUES ("%d", "%d", "%d")', ...
+            if exist(ValidMask)
+                qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID, ch1, ch2, ch3, ch4) VALUES ("%d", "%d", "%d")', ...
                           lastTetSessionID, ...
                           tetrodeIDlist(iTet), ...
                           sessionID(iSession));
+            else
+                qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID) VALUES ("%d", "%d", "%d")', ...
+                          lastTetSessionID, ...
+                          tetrodeIDlist(iTet), ...
+                          sessionID(iSession));
+            end
             rs = fetch(exec(conn, qry));
 
         end
