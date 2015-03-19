@@ -9,6 +9,10 @@ function sql_addTetrodeSessions(ratID, varargin)
 %
 % INPUTS:
 %   ratID - "RZZZZ" where ZZZZ is the 4 digit rat identifier
+%   validMask - tetrodes x channels logical matrix of good/bad wires (ex.
+%   16x4: validMask = ones(16,4); %all good channels
+%   lfpWire - tetrodes x 1 integer matrix of the LFP wire for each tetrode
+%   (ex. 16x1: lfpWire = ones(16,1); %use first wire
 %
 % OUTPUTS:
 %   none
@@ -18,6 +22,8 @@ for iarg = 1 : 2 : nargin - 1
     switch varargin{iarg}
         case 'validMask'
             validMask = varargin{iarg + 1};
+        case 'lfpWire'
+            lfpWire = varargin{iarg + 1};
     end
 end
 
@@ -49,7 +55,7 @@ if isconnection(conn)
     end
     tetrodeIDlist = unique(tetrodeIDlist);
     
-    if exist(validMask)
+    if exist('validMask','var')
         if ~(length(tetrodeIDlist)==size(validMask,1))
             error('sql_addTetrodeSessions:validMaskSize','Your valid mask size does not match the amount of tetrodes');
         end
@@ -94,11 +100,18 @@ if isconnection(conn)
             
             lastTetSessionID = lastTetSessionID + 1;
             
-            if exist(ValidMask)
-                qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID, ch1, ch2, ch3, ch4) VALUES ("%d", "%d", "%d")', ...
+            if exist('validMask','var') && exist('lfpWire','var')
+                qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID, ch1valid, ch2valid, ch3valid, ch4valid, lfpWire) VALUES ("%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d")', ...
                           lastTetSessionID, ...
                           tetrodeIDlist(iTet), ...
-                          sessionID(iSession));
+                          sessionID(iSession), ...
+                          validMask(iTet,1),validMask(iTet,2),validMask(iTet,3),validMask(iTet,4),lfpWire(iTet));
+            elseif exist('validMask','var')
+                qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID, ch1valid, ch2valid, ch3valid, ch4valid) VALUES ("%d", "%d", "%d", "%d", "%d", "%d", "%d")', ...
+                          lastTetSessionID, ...
+                          tetrodeIDlist(iTet), ...
+                          sessionID(iSession), ...
+                          validMask(iTet,1),validMask(iTet,2),validMask(iTet,3),validMask(iTet,4));
             else
                 qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID) VALUES ("%d", "%d", "%d")', ...
                           lastTetSessionID, ...
@@ -106,7 +119,6 @@ if isconnection(conn)
                           sessionID(iSession));
             end
             rs = fetch(exec(conn, qry));
-
         end
     end
     

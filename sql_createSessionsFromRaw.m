@@ -69,8 +69,8 @@ if isconnection(conn)
             if ~isempty(logInfo)    % there is a .log file for this session
 %                 error('sql_createSessionsFromRaw:noLogFile',['No log file for session ' sessionName]);
                 sessionComment = logData.comment;
-                behaviorID = 3; %choice task, !!!MUST FIX!!! -MG
-                apparatusID = 1; %moved up here, needs a better check
+                behaviorID = 3; %choice task default
+                apparatusID = 1; %choice task box 1
                 if isfield(logData, 'behaviorID')
                     behaviorID = logData.behaviorID;
                     if isfield(logData, 'box_number')

@@ -1,1 +1,0 @@
-MySQL connectors for extracting spikes (see ExtractSpikesTDT).
