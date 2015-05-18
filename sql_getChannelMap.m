@@ -35,11 +35,14 @@ if isconnection(conn)
     numChannels = size(rs.data, 1);
     tetrodeIDs = zeros(numChannels, 1);
     channelList = zeros(numChannels, 1);
+    
+    %loop through channels to input the tetrode IDs and channel list
     for iCh = 1 : numChannels
         tetrodeIDs(iCh) = rs.data{iCh, 1};
         channelList(iCh) = rs.data{iCh, 2};
     end
     
+    %Get rid of any repeated tetrode IDs
     unique_tetIDs = unique(tetrodeIDs);
     % find the maximum number of channel numbers for each tetrode
     maxChannels = 0;

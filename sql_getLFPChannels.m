@@ -34,6 +34,8 @@ if isconnection(conn)
         error('sql_getAllTetChannels:invalidTetrodeSession',['tetrode-session combination not found in sql database']);
     end
     lfpChannels = cell2mat(rs.Data);
+    
+    %set any non-number values to zero
     lfpChannels(isnan(lfpChannels)) = 0;
     
     close(conn);

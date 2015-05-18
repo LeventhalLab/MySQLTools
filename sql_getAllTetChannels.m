@@ -30,10 +30,14 @@ if isconnection(conn)
     qry = sprintf('SELECT ch1valid, ch2valid, ch3valid, ch4valid FROM tetrodeSession WHERE tetrodeSession.sessionID = "%d"',...
                   sessionID);
     rs = fetch(exec(conn, qry));
+    
+    %print an error if the channel is not found
     if strcmpi(rs.Data{1},'no data')
         error('sql_getAllTetChannels:invalidTetrodeSession',['tetrode-session combination not found in sql database']);
     end
     validMask = cell2mat(rs.Data);
+    
+    %set any non-number values to zero to mark the channel invalid
     validMask(isnan(validMask)) = 0;
     
     close(conn);

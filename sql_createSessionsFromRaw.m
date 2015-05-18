@@ -22,7 +22,7 @@ rawDataPath = fullfile(nasPath, ratID, [ratID '-rawdata']);
 conn = establishConn;
 
 if isconnection(conn)
-
+    %get the subject ID from the subject table
     qry = sprintf('SELECT subjectID FROM subject WHERE subject.SubjectName = "%s"',ratID);
     rs = fetch(exec(conn, qry));
     subjectID = rs.Data{1};
@@ -46,7 +46,7 @@ if isconnection(conn)
         if isdir(tempDirList(iDir).name) && strcmpi(ratID, tempDirList(iDir).name(1:5))
            
             sessionName = tempDirList(iDir).name;
-            
+            %get the sessionID from the session table
             qry = sprintf('SELECT sessionID FROM session WHERE session.sessionName = "%s"', sessionName);
             rs = fetch(exec(conn, qry));
             sessionID = rs.Data{1};
@@ -58,6 +58,7 @@ if isconnection(conn)
             
             cd(tempDirList(iDir).name);
             
+            %find the .log files
             logInfo = dir('*.log');
             if ~isempty(logInfo)
                 for iLog = 1 : length(logInfo)
@@ -71,6 +72,7 @@ if isconnection(conn)
                 sessionComment = logData.comment;
                 behaviorID = 3; %choice task default
                 apparatusID = 1; %choice task box 1
+                %get the behavior and apparatus IDs
                 if isfield(logData, 'behaviorID')
                     behaviorID = logData.behaviorID;
                     if isfield(logData, 'box_number')
@@ -85,6 +87,7 @@ if isconnection(conn)
                         end
                     end
                 end
+                %get the ephysSystemID
                 if isfield(logData, 'ephys_system')
                     ephysSystemID = logData.ephys_system;
                 else

@@ -19,6 +19,8 @@ if isconnection(conn)
     qry = sprintf('SELECT nasLocation,experimentID FROM subject WHERE subject.subjectName = "%s"',ratID);
     rs = fetch(exec(conn, qry));
     nasLocationID = rs.data{1};
+    
+    %print an error if the rat ID is not found in the tables
     if strcmpi(nasLocationID, 'no data')
         error('sql_findNASpath:invalidSubject',[ratID ' not found in subject table']);
     end
@@ -40,6 +42,7 @@ if isconnection(conn)
     rs = fetch(exec(conn, qry));
     nasIPaddress = rs.data{1};
 
+    %check what type of computer the program is running on
     if ispc
      IPpath = sprintf('\\\\%s',nasIPaddress);
     elseif ismac

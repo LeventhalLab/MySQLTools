@@ -31,7 +31,7 @@ end
 conn = establishConn;
 
 if isconnection(conn)
-
+    %get the subject ID and ephysInterface from the subject table
     qry = sprintf('SELECT subjectID, ephysInterface FROM subject WHERE subject.SubjectName = "%s"',ratID);
     rs = fetch(exec(conn, qry));
     subjectID = rs.Data{1};
@@ -99,6 +99,8 @@ if isconnection(conn)
             end
             
             lastTetSessionID = lastTetSessionID + 1;
+            
+            %Input the information into the tables in the MySQL database
             
             if exist('validMask','var') && exist('lfpWire','var')
                 qry = sprintf('INSERT INTO tetrodeSession (tetrodeSessionID, tetrodeID, sessionID, ch1valid, ch2valid, ch3valid, ch4valid, lfpWire) VALUES ("%d", "%d", "%d", "%d", "%d", "%d", "%d", "%d")', ...
