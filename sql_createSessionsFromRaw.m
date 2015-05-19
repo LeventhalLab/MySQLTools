@@ -62,7 +62,7 @@ if isconnection(conn)
             logInfo = dir('*.log');
             if ~isempty(logInfo)
                 for iLog = 1 : length(logInfo)
-                    logData = readLogData(logInfo(iLog).name);
+                    logData = readLogData(tempDirList(iDir).name,logInfo(iLog).name);
                     if ~isempty(logData); break; end
                 end
                 if isempty(logData);continue;end
