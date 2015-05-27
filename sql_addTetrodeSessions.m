@@ -24,6 +24,10 @@ for iarg = 1 : 2 : nargin - 1
             validMask = varargin{iarg + 1};
         case 'lfpWire'
             lfpWire = varargin{iarg + 1};
+        case 'sessionID'
+            onlySessionID = varargin{iarg + 1};
+        case 'coordinates'
+            coordinates = varargin{iarg + 1};
     end
 end
 
@@ -70,6 +74,11 @@ if isconnection(conn)
     end 
     sessionID = zeros(length(rs.Data), 1);
     for iSession = 1 : length(sessionID)
+        if exist('onlySessionID','var')
+            if ~(rs.Data{iSession} == onlySessionID)
+                continue; % skip sessions that don't match the passed-in sessionID
+            end
+        end
         sessionID(iSession) = rs.Data{iSession};
     end
     
