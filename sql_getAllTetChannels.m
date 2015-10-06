@@ -27,7 +27,7 @@ if isconnection(conn)
     
     % read the "channelvalid" fields from the sql database for this
     % tetrode-session pair
-    qry = sprintf('SELECT ch1valid, ch2valid, ch3valid, ch4valid FROM tetrodeSession WHERE tetrodeSession.sessionID = "%d"',...
+    qry = sprintf('SELECT ch1valid, ch2valid, ch3valid, ch4valid FROM tetrodeSession WHERE tetrodeSession.sessionID = "%d" order by tetrodeID',...
                   sessionID);
     rs = fetch(exec(conn, qry));
     

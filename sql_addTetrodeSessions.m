@@ -1,4 +1,5 @@
 function sql_addTetrodeSessions(ratID, varargin)
+% [] Maybe this function can update values too?
 %
 % usage: sql_addTetrodeSessions(ratID, varargin)
 %
@@ -24,8 +25,8 @@ for iarg = 1 : 2 : nargin - 1
             validMask = varargin{iarg + 1};
         case 'lfpWire'
             lfpWire = varargin{iarg + 1};
-        case 'sessionID'
-            onlySessionID = varargin{iarg + 1};
+        case 'sessionName'
+            sessionName = varargin{iarg + 1};
         case 'coordinates'
             coordinates = varargin{iarg + 1};
     end
@@ -67,19 +68,19 @@ if isconnection(conn)
     
     % find all the sessions already entered in the sql database for that
     % rat that have ephys recordings
-    qry = sprintf('SELECT sessionID FROM session WHERE session.subjectID = "%d" AND ephysSystemID > "0"',subjectID);
+    if ~exist('sessionName','var')
+        qry = sprintf('SELECT sessionID,sessionName FROM session WHERE session.subjectID = "%d" AND ephysSystemID > "0"',subjectID);
+    else
+        qry = sprintf('SELECT sessionID FROM session WHERE session.subjectID = "%d" AND ephysSystemID > "0" AND session.sessionName="%s"',...
+            subjectID,sessionName);
+    end
     rs = fetch(exec(conn, qry));
     if strcmpi(rs.Data{1}, 'no data')
         error('sql_addTetrodeSessions:noValidSessions',['No sessions for ' ratID ' found in session table']);
     end 
-    sessionID = zeros(length(rs.Data), 1);
+    sessionID = zeros(length(rs.Data),1);
     for iSession = 1 : length(sessionID)
-        if exist('onlySessionID','var')
-            if ~(rs.Data{iSession} == onlySessionID)
-                continue; % skip sessions that don't match the passed-in sessionID
-            end
-        end
-        sessionID(iSession) = rs.Data{iSession};
+        sessionID(iSession) = rs.Data{iSession,1}; %sessionIDs
     end
     
     % find the last tetrodeSession ID already in the table
