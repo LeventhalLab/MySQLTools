@@ -24,7 +24,7 @@ if isconnection(conn)
     % first, get the ephys interface type from the subject table
     qry = sprintf('SELECT ephysInterface FROM subject WHERE subject.subjectName = "%s"',ratID);
     rs = fetch(exec(conn, qry));
-    ephysInterfaceID = rs.data{1};
+    ephysInterfaceID = rs.Data{1};
     if strcmpi(ephysInterfaceID, 'no data')
         error('sql_getChannelMap:invalidSubject',[ratID ' not found in subject table']);
     end
@@ -32,14 +32,14 @@ if isconnection(conn)
     % next, get the NAS IP address ID and name of the recordings folder from the nasLocation table
     qry = sprintf('SELECT tetrodeID, channelNumber FROM channelMap WHERE channelMap.interfaceID = %d',ephysInterfaceID);
     rs = fetch(exec(conn, qry));
-    numChannels = size(rs.data, 1);
+    numChannels = size(rs.Data, 1);
     tetrodeIDs = zeros(numChannels, 1);
     channelList = zeros(numChannels, 1);
     
     %loop through channels to input the tetrode IDs and channel list
     for iCh = 1 : numChannels
-        tetrodeIDs(iCh) = rs.data{iCh, 1};
-        channelList(iCh) = rs.data{iCh, 2};
+        tetrodeIDs(iCh) = rs.Data{iCh, 1};
+        channelList(iCh) = rs.Data{iCh, 2};
     end
     
     %Get rid of any repeated tetrode IDs
@@ -63,7 +63,7 @@ if isconnection(conn)
         
         qry = sprintf('SELECT tetrodeName FROM tetrode WHERE tetrode.tetrodeID = %d',unique_tetIDs(iTet));
         rs = fetch(exec(conn, qry));
-        chMap.tetNames{iTet} = rs.data{1};
+        chMap.tetNames{iTet} = rs.Data{1};
     end
     
     close(conn);

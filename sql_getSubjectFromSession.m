@@ -19,14 +19,14 @@ if isconnection(conn)
     % first, get the subjectID given the session name
     qry = sprintf('SELECT subjectID FROM session WHERE session.sessionName= "%s"', sessionName);
     rs = fetch(exec(conn, qry));
-    subjectID = rs.data{1};
+    subjectID = rs.Data{1};
     if strcmpi(subjectID, 'no data')
         error('sql_getSubjectFromSession:invalidSession',['Cannot find session ' sessionName ' in sql database']);
     end
     % next, get the rat ID given the subjectID
     qry = sprintf('SELECT subjectName FROM subject WHERE subject.subjectID = %d', subjectID);
     rs = fetch(exec(conn, qry));
-    ratID = rs.data{1};
+    ratID = rs.Data{1};
     close(conn);
 else
 	error('sql_getSubjectFromSession:invalidConnection','Cannot connect to sql database');

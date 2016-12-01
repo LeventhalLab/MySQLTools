@@ -27,7 +27,7 @@ if isconnection(conn)
     
     % read the "channelvalid" fields from the sql database for this
     % tetrode-session pair
-    qry = sprintf('SELECT singleWire FROM tetrodeSession WHERE tetrodeSession.sessionID = "%d"',...
+    qry = sprintf('SELECT singleWires FROM tetrodeSession WHERE tetrodeSession.sessionID = "%d"',...
                   sessionID);
     rs = fetch(exec(conn, qry));
     if strcmpi(rs.Data{1},'no data')
