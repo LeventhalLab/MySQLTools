@@ -18,7 +18,7 @@ function validMask = sql_getValidTetChannels(sessionName, tetrodeID, varargin)
 
 conn = establishConn;
 
-if isconnection(conn)
+if isopen(conn)
 
     % get the sessionID from the session table for the given session name
     qry = sprintf('SELECT sessionID FROM session WHERE session.sessionName= "%s"',sessionName);

@@ -20,7 +20,7 @@ function chMap = sql_getChannelMap(ratID, varargin)
            
 conn = establishConn;
 
-if isconnection(conn)
+if isopen(conn)
     % first, get the ephys interface type from the subject table
     qry = sprintf('SELECT ephysInterface FROM subject WHERE subject.subjectName = "%s"',ratID);
     rs = fetch(exec(conn, qry));

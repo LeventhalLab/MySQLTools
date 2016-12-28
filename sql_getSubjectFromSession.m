@@ -15,7 +15,7 @@ function [subjectID, ratID] = sql_getSubjectFromSession(sessionName, varargin)
 
 conn = establishConn;
 
-if isconnection(conn)
+if isopen(conn)
     % first, get the subjectID given the session name
     qry = sprintf('SELECT subjectID FROM session WHERE session.sessionName= "%s"', sessionName);
     rs = fetch(exec(conn, qry));

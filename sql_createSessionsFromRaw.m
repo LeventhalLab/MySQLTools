@@ -21,7 +21,7 @@ rawDataPath = fullfile(nasPath, ratID, [ratID '-rawdata']);
 
 conn = establishConn;
 
-if isconnection(conn)
+if isopen(conn)
     %get the subject ID from the subject table
     qry = sprintf('SELECT subjectID FROM subject WHERE subject.SubjectName = "%s"',ratID);
     rs = fetch(exec(conn, qry));
