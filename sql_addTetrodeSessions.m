@@ -35,7 +35,7 @@ end
 
 conn = establishConn;
 
-if isconnection(conn)
+if isopen(conn)
     %get the subject ID and ephysInterface from the subject table
     qry = sprintf('SELECT subjectID, ephysInterface FROM subject WHERE subject.SubjectName = "%s"',ratID);
     rs = fetch(exec(conn, qry));
