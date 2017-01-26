@@ -1,1 +1,0 @@
-SELECT subjects.name, nas_servers.host, nas_folders.path FROM subjects INNER JOIN nas_servers ON subjects.nas_server_id = nas_servers.id INNER JOIN nas_folders ON nas_servers.id = nas_folders.nas_server_id WHERE subjects.name = "R0088"

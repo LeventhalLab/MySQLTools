@@ -12,5 +12,11 @@ load('mysql.mat');
 if ~isdeployed
     addJava(sqlJava_version);
 end
-%establishes a database connection
+
+% establishes a database connection
 conn = database(dbName, user, password, jdbcDriver, jdbcString);
+if isopen(conn)
+    setdbprefs('DataReturnFormat','table');
+else
+    error('Cannot connect to sql database');
+end

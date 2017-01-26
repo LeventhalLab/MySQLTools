@@ -1,4 +1,4 @@
-function nasPath = sql_findNASpath(subject_name)
+function nasPath = sqlv2_findNASpath(subjects__name)
 %
 % usage: nasPath = sql_findNASpath(subject_name)
 %
@@ -10,12 +10,17 @@ function nasPath = sql_findNASpath(subject_name)
 
 conn = establishConn;
 
-if isopen(conn)
-    qry = fileread('findNASpath.sql');
-    [data,cols] = fetchCols(conn,qry,'subject name not found');
-    
-    nasPath = fullfile(dataCol(data,cols,'name'), dataCol(data,cols,'host'), dataCol(data,cols,'name'));
-    close(conn);
-else
-	error('Cannot connect to sql database');
+qry = fileread('sqlv2_findNASpath.sql');
+qry = sprintf(qry,subjects__name);
+T = fetch2(conn,qry,'subject name not found');
+
+if ispc
+    host = sprintf('\\\\%s',T.nas_server__host{1});
+elseif ismac
+    host = '/Volumes';
+elseif isunix
+    host = '';
 end
+
+nasPath = fullfile(host,T.nas_folders__path{1},T.experiments__name{1});
+close(conn);
