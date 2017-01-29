@@ -1,5 +1,5 @@
-SELECT eib_electrodes.channel,
-eib_electrodes.site,
+SELECT eib_electrodes.site,
+eib_electrodes.channel,
 session_electrodes.ap,
 session_electrodes.ml,
 session_electrodes.dv,
