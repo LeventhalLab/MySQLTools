@@ -8,4 +8,4 @@ session_electrodes.valid
 FROM sessions
 INNER JOIN session_electrodes ON session_electrodes.session_id = sessions.id
 INNER JOIN eib_electrodes ON eib_electrodes.id = session_electrodes.eib_electrodes_id
-WHERE sessions.name = "R0088_20151101a"
+WHERE sessions.name = "%s"
