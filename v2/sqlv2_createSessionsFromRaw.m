@@ -1,4 +1,4 @@
-function sql_createSessionsFromRaw(ratID, varargin)
+function sqlv2_createSessionsFromRaw(ratID, varargin)
 %
 % usage: sql_createSessionsFromRaw(ratID, varargin)
 %
@@ -16,7 +16,7 @@ function sql_createSessionsFromRaw(ratID, varargin)
 % OUTPUTS:
 %   none
 
-nasPath = sql_findNASpath( ratID );
+nasPath = sqlv2_findNASpath( ratID );
 rawDataPath = fullfile(nasPath, ratID, [ratID '-rawdata']);
 
 conn = establishConn;
