@@ -5,8 +5,11 @@ T = curs.Data;
 if ~isempty(err)
     if isempty(T)
         error(err);
+    elseif ~istable(T)
+        T = {};
+    else
+        T.Properties.VariableNames = columnlabels(curs);
     end
 end
 
-T.Properties.VariableNames = columnlabels(curs);
 close(curs);
